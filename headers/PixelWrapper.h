@@ -17,5 +17,7 @@
 using namespace cv;
 using namespace std;
 
+int x;
+int y;
 
 #endif /* defined(__assignment_3__PixelWrapper__) */

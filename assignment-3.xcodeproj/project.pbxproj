@@ -11,6 +11,7 @@
 		D0B984691C1754A400FB5330 /* Segment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B984661C1754A400FB5330 /* Segment.cpp */; };
 		D0B9846C1C17551F00FB5330 /* PixelWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B9846A1C17551F00FB5330 /* PixelWrapper.cpp */; };
 		D0B9846F1C17554C00FB5330 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B9846D1C17554C00FB5330 /* Graph.cpp */; };
+		D0B984721C175DFB00FB5330 /* MatWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B984711C175DFB00FB5330 /* MatWrapper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,13 +28,15 @@
 
 /* Begin PBXFileReference section */
 		D0B984561C1744CB00FB5330 /* assignment-3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "assignment-3"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0B984591C1744CB00FB5330 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../cpp/main.cpp; sourceTree = "<group>"; };
-		D0B984661C1754A400FB5330 /* Segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Segment.cpp; path = ../../cpp/Segment.cpp; sourceTree = "<group>"; };
-		D0B984671C1754A400FB5330 /* Segment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Segment.h; path = ../../headers/Segment.h; sourceTree = "<group>"; };
-		D0B9846A1C17551F00FB5330 /* PixelWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PixelWrapper.cpp; path = ../../cpp/PixelWrapper.cpp; sourceTree = "<group>"; };
-		D0B9846B1C17551F00FB5330 /* PixelWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PixelWrapper.h; path = ../../headers/PixelWrapper.h; sourceTree = "<group>"; };
-		D0B9846D1C17554C00FB5330 /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Graph.cpp; path = ../../cpp/Graph.cpp; sourceTree = "<group>"; };
-		D0B9846E1C17554C00FB5330 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Graph.h; path = ../../headers/Graph.h; sourceTree = "<group>"; };
+		D0B984591C1744CB00FB5330 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D0B984661C1754A400FB5330 /* Segment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Segment.cpp; sourceTree = "<group>"; };
+		D0B984671C1754A400FB5330 /* Segment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Segment.h; sourceTree = "<group>"; };
+		D0B9846A1C17551F00FB5330 /* PixelWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PixelWrapper.cpp; sourceTree = "<group>"; };
+		D0B9846B1C17551F00FB5330 /* PixelWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelWrapper.h; sourceTree = "<group>"; };
+		D0B9846D1C17554C00FB5330 /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
+		D0B9846E1C17554C00FB5330 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
+		D0B984701C175DE700FB5330 /* MatWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatWrapper.h; sourceTree = "<group>"; };
+		D0B984711C175DFB00FB5330 /* MatWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatWrapper.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,9 +74,9 @@
 				D0B984591C1744CB00FB5330 /* main.cpp */,
 				D0B984661C1754A400FB5330 /* Segment.cpp */,
 				D0B9846D1C17554C00FB5330 /* Graph.cpp */,
+				D0B984711C175DFB00FB5330 /* MatWrapper.cpp */,
 			);
-			name = cpp;
-			path = "assignment-3/cpp";
+			path = cpp;
 			sourceTree = "<group>";
 		};
 		D0B984681C1754A400FB5330 /* headers */ = {
@@ -82,9 +85,9 @@
 				D0B9846E1C17554C00FB5330 /* Graph.h */,
 				D0B984671C1754A400FB5330 /* Segment.h */,
 				D0B9846B1C17551F00FB5330 /* PixelWrapper.h */,
+				D0B984701C175DE700FB5330 /* MatWrapper.h */,
 			);
-			name = headers;
-			path = "assignment-3/headers";
+			path = headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0B984721C175DFB00FB5330 /* MatWrapper.cpp in Sources */,
 				D0B9846F1C17554C00FB5330 /* Graph.cpp in Sources */,
 				D0B9845A1C1744CB00FB5330 /* main.cpp in Sources */,
 				D0B9846C1C17551F00FB5330 /* PixelWrapper.cpp in Sources */,
@@ -234,7 +238,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
-					"\"$(SRCROOT)/headers\"",
+					"$(SRCROOT)/headers",
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = (
@@ -268,7 +272,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					/usr/local/include,
-					"\"$(SRCROOT)/headers\"",
+					"$(SRCROOT)/headers",
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_LDFLAGS = (
@@ -314,6 +318,7 @@
 				D0B9845F1C1744CB00FB5330 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
