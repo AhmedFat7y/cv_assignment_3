@@ -40,15 +40,15 @@ double MatWrapper::get(int x, int y) {
 
 vector<Point2i> MatWrapper::getNeibours (int x, int y) {
     vector<Point2i> neighbourPoints = {
-        Point2d(x - 1, y - 1),
-        Point2d(x, y - 1),
-        Point2d(x + 1, y - 1),
-        Point2d(x - 1, y),
-        Point2d(x, y),
-        Point2d(x + 1, y),
-        Point2d(x - 1, y + 1),
-        Point2d(x , y + 1),
-        Point2d(x + 1, y + 1),
+        Point2i(x - 1, y - 1),
+        Point2i(x, y - 1),
+        Point2i(x + 1, y - 1),
+        Point2i(x - 1, y),
+        Point2i(x, y),
+        Point2i(x + 1, y),
+        Point2i(x - 1, y + 1),
+        Point2i(x , y + 1),
+        Point2i(x + 1, y + 1),
     };
     vector<Point2i>::iterator it = neighbourPoints.begin();
     while(it != neighbourPoints.end()) {

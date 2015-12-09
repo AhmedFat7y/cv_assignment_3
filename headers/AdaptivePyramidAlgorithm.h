@@ -18,10 +18,10 @@ public:
     MatWrapper img;
     AdaptivePyramidAlgorithm(Mat img);
     void init();
-    
-private:
     void createNodes();
     void setNeighbours();
+    void calculateMean();
+    void calculateVariance();
 };
 
 #endif

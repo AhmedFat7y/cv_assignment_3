@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Unlimited Blade Works. All rights reserved.
 //
 
-#include <stdio.h>
 #include "AdaptivePyramidAlgorithm.h"
 
 AdaptivePyramidAlgorithm::AdaptivePyramidAlgorithm(Mat img) {
@@ -44,5 +43,14 @@ void AdaptivePyramidAlgorithm::setNeighbours() {
     }
 }
 
-void 
 
+void AdaptivePyramidAlgorithm::calculateMean() {
+    
+    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+        itr->updateMean();
+    }
+}
+
+void AdaptivePyramidAlgorithm::calculateVariance() {
+    
+}

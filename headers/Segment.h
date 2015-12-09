@@ -21,10 +21,19 @@ using namespace std;
 
 class Segment {
 public:
+    bool _isDead;
+    double mean;
+    double variance;
     vector<PixelWrapper> pixels;
     vector<Segment> neighbours;
     void linkPixel(PixelWrapper pixel);
     void addNeighbour(Segment segment);
+    void updateMean();
+    void updateVariance();
+    void kill();
+    void survive();
+    bool isSurvivor();
+    bool isDead();
 //    void addNeighbours(vector<Point2i> &neighbours, int width);
 };
 
