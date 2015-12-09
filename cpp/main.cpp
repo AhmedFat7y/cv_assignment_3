@@ -13,9 +13,13 @@
 using namespace cv;
 using namespace std;
 
+#include "AdaptivePyramidAlgorithm.h"
+
+string path = "/Users/MacBookAir/Documents/guc-projects/cv/assignment-3/";
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    Mat img = imread(path + "house.bmp", CV_LOAD_IMAGE_COLOR);   // Read the file
+    AdaptivePyramidAlgorithm algorithm(img);
+    algorithm.init();
     return 0;
 }

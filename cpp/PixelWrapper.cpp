@@ -7,3 +7,9 @@
 //
 
 #include "PixelWrapper.h"
+
+PixelWrapper::PixelWrapper(int x, int y, double value) {
+    this->x = x;
+    this->y = y;
+    this->value = value;
+}

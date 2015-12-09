@@ -8,3 +8,11 @@
 
 
 #include "Segment.h"
+
+void Segment::linkPixel(PixelWrapper pixel) {
+    pixels.push_back(pixel);
+}
+
+void Segment::addNeighbour(Segment segment) {
+    neighbours.push_back(segment);
+}

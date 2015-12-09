@@ -17,7 +17,13 @@
 using namespace cv;
 using namespace std;
 
-int x;
-int y;
+class PixelWrapper {
+public:
+    int x;
+    int y;
+    double value;
+    //x = j, y = i
+    PixelWrapper(int x, int y, double value);
+};
 
 #endif /* defined(__assignment_3__PixelWrapper__) */

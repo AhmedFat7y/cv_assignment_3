@@ -13,9 +13,18 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 #include <stdio.h>
+#include "Segment.h"
 
 using namespace cv;
 using namespace std;
+
+
+class Graph {
+public:
+    vector<Segment> nodes;
+    void addNode(Segment segment);
+    Segment getNode(int index);
+};
 
 
 #endif /* defined(__assignment_3__Graph__) */

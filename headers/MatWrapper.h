@@ -19,11 +19,18 @@ using namespace std;
 
 
 class MatWrapper {
+public:
     Mat * mat;
-    MatWrapper(int width, int height, InputArray data);
+    int width; // cols
+    int height; // row
+    MatWrapper();
+    MatWrapper(int cols, int rows, InputArray data);
     MatWrapper(Mat * mat);
+    // x is j, y is i
     double get(double x, double y);
+    // x is j, y is i
     double get(int x, int y);
+    vector<Point2i> getNeibours (int x, int y);
     ~MatWrapper();
 };
 

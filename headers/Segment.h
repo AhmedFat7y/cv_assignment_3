@@ -13,9 +13,19 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 #include <stdio.h>
+#include "PixelWrapper.h"
 
 using namespace cv;
 using namespace std;
 
+
+class Segment {
+public:
+    vector<PixelWrapper> pixels;
+    vector<Segment> neighbours;
+    void linkPixel(PixelWrapper pixel);
+    void addNeighbour(Segment segment);
+//    void addNeighbours(vector<Point2i> &neighbours, int width);
+};
 
 #endif /* defined(__assignment_3__Segment__) */

@@ -12,6 +12,7 @@
 		D0B9846C1C17551F00FB5330 /* PixelWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B9846A1C17551F00FB5330 /* PixelWrapper.cpp */; };
 		D0B9846F1C17554C00FB5330 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B9846D1C17554C00FB5330 /* Graph.cpp */; };
 		D0B984721C175DFB00FB5330 /* MatWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B984711C175DFB00FB5330 /* MatWrapper.cpp */; };
+		D0B984751C183F2600FB5330 /* AdaptivePyramidAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B984741C183F2600FB5330 /* AdaptivePyramidAlgorithm.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +38,9 @@
 		D0B9846E1C17554C00FB5330 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
 		D0B984701C175DE700FB5330 /* MatWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatWrapper.h; sourceTree = "<group>"; };
 		D0B984711C175DFB00FB5330 /* MatWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MatWrapper.cpp; sourceTree = "<group>"; };
+		D0B984731C183F0F00FB5330 /* AdaptivePyramidAlgorithm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdaptivePyramidAlgorithm.h; sourceTree = "<group>"; };
+		D0B984741C183F2600FB5330 /* AdaptivePyramidAlgorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AdaptivePyramidAlgorithm.cpp; sourceTree = "<group>"; };
+		D0B984761C18400C00FB5330 /* house.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = house.bmp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 				D0B984681C1754A400FB5330 /* headers */,
 				D0B984651C1754A400FB5330 /* cpp */,
 				D0B984571C1744CB00FB5330 /* Products */,
+				D0B984761C18400C00FB5330 /* house.bmp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +80,7 @@
 				D0B984661C1754A400FB5330 /* Segment.cpp */,
 				D0B9846D1C17554C00FB5330 /* Graph.cpp */,
 				D0B984711C175DFB00FB5330 /* MatWrapper.cpp */,
+				D0B984741C183F2600FB5330 /* AdaptivePyramidAlgorithm.cpp */,
 			);
 			path = cpp;
 			sourceTree = "<group>";
@@ -86,6 +92,7 @@
 				D0B984671C1754A400FB5330 /* Segment.h */,
 				D0B9846B1C17551F00FB5330 /* PixelWrapper.h */,
 				D0B984701C175DE700FB5330 /* MatWrapper.h */,
+				D0B984731C183F0F00FB5330 /* AdaptivePyramidAlgorithm.h */,
 			);
 			path = headers;
 			sourceTree = "<group>";
@@ -150,6 +157,7 @@
 				D0B9846F1C17554C00FB5330 /* Graph.cpp in Sources */,
 				D0B9845A1C1744CB00FB5330 /* main.cpp in Sources */,
 				D0B9846C1C17551F00FB5330 /* PixelWrapper.cpp in Sources */,
+				D0B984751C183F2600FB5330 /* AdaptivePyramidAlgorithm.cpp in Sources */,
 				D0B984691C1754A400FB5330 /* Segment.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
