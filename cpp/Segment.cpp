@@ -34,25 +34,44 @@ void Segment::updateMean() {
 void Segment::updateVariance() {
     this -> variance = 0;
     for (vector<PixelWrapper>::iterator itr = pixels.begin(); itr != pixels.end(); itr++) {
-        this -> variance += itr->value;
+        this -> variance += pow(itr->value - this->mean, 2);
     }
     if (pixels.size() > 0 ) {
         this -> variance /= pixels.size();
     }
 }
 
+void Segment::SurviveOrKill() {
+    for(vector<Segment>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        if(!itr->isMarked() && itr->mean < this->mean) {
+            kill();
+        }
+    }
+    survive();
+    for(vector<Segment>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        if(!itr->isMarked()) {
+            itr->kill();
+        }
+    }
+}
+
 void Segment::kill() {
     _isDead = true;
+    _isMarked = true;
 }
 
 void Segment::survive() {
     _isDead = false;
+    _isMarked = true;
 }
 
 bool Segment::isDead() {
     return _isDead;
 }
 
+bool Segment::isMarked() {
+    return _isMarked;
+}
 bool Segment::isSurvivor() {
     return !_isDead;
 }

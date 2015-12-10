@@ -17,6 +17,15 @@ AdaptivePyramidAlgorithm::AdaptivePyramidAlgorithm(Mat img, double threshold) {
 void AdaptivePyramidAlgorithm::init() {
     createNodes();
     setNeighbours();
+//    calculateVariancesFirstTime();
+}
+void AdaptivePyramidAlgorithm::start() {
+    do {
+        startIteration();
+    } while(doesNeedAnotherIteration());
+    //finished labeling all pixels/segments
+    
+
 }
 
 //adding the pixels in sequential order
@@ -28,8 +37,10 @@ void AdaptivePyramidAlgorithm::createNodes() {
             Segment s;
             PixelWrapper p(x, y, img.get(x, y));
             s.linkPixel(p);
-            graph.addNode(s);
             s.updateMean();
+            //calculate variance first time using kernel window 3x3
+            s.variance = img.calculateVariance(x, y);
+            graph.addNode(s);
         }
     }
 }
@@ -38,7 +49,10 @@ void AdaptivePyramidAlgorithm::setNeighbours() {
     for(int y = 0; y < img.height; y++) {
         for(int x = 0; x < img.width; x++) {
             Segment currentNode = graph.getNode(y * img.width + x);
-            currentNode.addNeighbours(getNeighbours(x, y));
+            vector<Point2i> neighboursIndecies = img.getNeighbours(x, y);
+            for(vector<Point2i>::iterator it = neighboursIndecies.begin(); it != neighboursIndecies.end(); it++) {
+                currentNode.addNeighbour(graph.getNode(it->y * img.width + it->x));
+            }
         }
     }
 }
@@ -51,22 +65,40 @@ void AdaptivePyramidAlgorithm::calculateMeans() {
 }
 
 //always call calculateMeans before calculateVariances
+//used for higher levels
 void AdaptivePyramidAlgorithm::calculateVariances() {
     for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
         itr->updateVariance();
     }
 }
 
-vector<Segment> AdaptivePyramidAlgorithm::getNeighbours(int x, int y) {
-    vector<Point2i> neighboursIndecies = img.getNeighbours(x, y);
-    vector<Segment> neighbours(neighboursIndecies.size());
-    for(vector<Point2i>::iterator it = neighboursIndecies.begin(); it != neighboursIndecies.end(); it++) {
-        neighbours.push_back(graph.getNode(it->y * img.width + it->x));
+
+//void AdaptivePyramidAlgorithm::calculateVariancesFirstTime() {
+//    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+//        PixelWrapper pixel = itr->pixels.front();
+//        itr->variance = img.calculateVariance(pixel.x, pixel.y);
+//
+//    }
+//}
+
+void AdaptivePyramidAlgorithm::startIteration() {
+    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+        itr->SurviveOrKill();
     }
-    return neighbours;
 }
 
+
+//TODO implement this method please
 bool AdaptivePyramidAlgorithm::doesNeedAnotherLevel() {
-    calculateMeans();
     return  false;
+}
+
+//
+bool AdaptivePyramidAlgorithm::doesNeedAnotherIteration() {
+    for(vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+        if(!itr->isMarked()) {
+            return true;
+        }
+    }
+    return false;
 }

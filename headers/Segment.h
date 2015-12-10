@@ -22,6 +22,7 @@ using namespace std;
 class Segment {
 public:
     bool _isDead;
+    bool _isMarked;
     double mean;
     double variance;
     vector<PixelWrapper> pixels;
@@ -30,10 +31,12 @@ public:
     void addNeighbour(Segment segment);
     void updateMean();
     void updateVariance();
+    void SurviveOrKill();
     void kill();
     void survive();
     bool isSurvivor();
     bool isDead();
+    bool isMarked();
     void addNeighbours(vector<Segment> neighbours);
 };
 

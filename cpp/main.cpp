@@ -16,10 +16,11 @@ using namespace std;
 #include "AdaptivePyramidAlgorithm.h"
 
 string path = "/Users/MacBookAir/Documents/guc-projects/cv/assignment-3/";
-
+double threshold = 120;
 int main(int argc, const char * argv[]) {
     Mat img = imread(path + "house.bmp", CV_LOAD_IMAGE_COLOR);   // Read the file
-    AdaptivePyramidAlgorithm algorithm(img);
+    AdaptivePyramidAlgorithm algorithm(img, threshold);
     algorithm.init();
+    algorithm.start();
     return 0;
 }
