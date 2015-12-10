@@ -38,7 +38,7 @@ double MatWrapper::get(int x, int y) {
     return this->mat->at<double>(y, x);
 }
 
-vector<Point2i> MatWrapper::getNeibours (int x, int y) {
+vector<Point2i> MatWrapper::getNeighbours (int x, int y) {
     vector<Point2i> neighbourPoints = {
         Point2i(x - 1, y - 1),
         Point2i(x, y - 1),
@@ -60,3 +60,31 @@ vector<Point2i> MatWrapper::getNeibours (int x, int y) {
     }
     return neighbourPoints;
 }
+
+//
+//vector<double> MatWrapper::getNeighboursValues (int x, int y) {
+//    vector<double> neighboursValues;
+//    vector<Point2i> neighbourPoints = {
+//        Point2i(x - 1, y - 1),
+//        Point2i(x, y - 1),
+//        Point2i(x + 1, y - 1),
+//        Point2i(x - 1, y),
+//        Point2i(x, y),
+//        Point2i(x + 1, y),
+//        Point2i(x - 1, y + 1),
+//        Point2i(x , y + 1),
+//        Point2i(x + 1, y + 1),
+//    };
+//    for(vector<Point2i>::iterator itr = neighbourPoints.begin(); itr != neighbourPoints.end(); itr++) {
+//        if (itr->x >= width || itr->x < 0 || itr->y < 0 || itr->y >= height) {
+//            continue;
+//        }
+//    }
+//    return neighboursValues;
+//}
+//
+//double MatWrapper::calculateVariance(int x, int y) {
+//    double variance = 0;
+//    vector<double> neighbourPixels
+//    return variance;
+//}

@@ -14,14 +14,18 @@
 
 class AdaptivePyramidAlgorithm {
     Graph graph;
+    int level;
+    double threshold;
 public:
     MatWrapper img;
-    AdaptivePyramidAlgorithm(Mat img);
+    AdaptivePyramidAlgorithm(Mat img, double threshold);
     void init();
     void createNodes();
+    vector<Segment> getNeighbours(int x, int y);
     void setNeighbours();
-    void calculateMean();
-    void calculateVariance();
+    void calculateMeans();
+    void calculateVariances();
+    bool doesNeedAnotherLevel();
 };
 
 #endif

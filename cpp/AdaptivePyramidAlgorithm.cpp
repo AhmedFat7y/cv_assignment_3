@@ -8,11 +8,15 @@
 
 #include "AdaptivePyramidAlgorithm.h"
 
-AdaptivePyramidAlgorithm::AdaptivePyramidAlgorithm(Mat img) {
+AdaptivePyramidAlgorithm::AdaptivePyramidAlgorithm(Mat img, double threshold) {
     this->img = MatWrapper(&img);
+    this->level = 0;
+    this->threshold = threshold;
 }
 
 void AdaptivePyramidAlgorithm::init() {
+    createNodes();
+    setNeighbours();
 }
 
 //adding the pixels in sequential order
@@ -25,32 +29,44 @@ void AdaptivePyramidAlgorithm::createNodes() {
             PixelWrapper p(x, y, img.get(x, y));
             s.linkPixel(p);
             graph.addNode(s);
+            s.updateMean();
         }
     }
 }
-
-
 
 void AdaptivePyramidAlgorithm::setNeighbours() {
     for(int y = 0; y < img.height; y++) {
         for(int x = 0; x < img.width; x++) {
             Segment currentNode = graph.getNode(y * img.width + x);
-            vector<Point2i> neighbours = img.getNeibours(x, y);
-            for(vector<Point2i>::iterator it = neighbours.begin(); it != neighbours.end(); it++) {
-                currentNode.addNeighbour(graph.getNode(it->y * img.width + it->x));
-            }
+            currentNode.addNeighbours(getNeighbours(x, y));
         }
     }
 }
 
-
-void AdaptivePyramidAlgorithm::calculateMean() {
-    
+//always call calculateMeans before calculateVariances
+void AdaptivePyramidAlgorithm::calculateMeans() {
     for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
         itr->updateMean();
     }
 }
 
-void AdaptivePyramidAlgorithm::calculateVariance() {
-    
+//always call calculateMeans before calculateVariances
+void AdaptivePyramidAlgorithm::calculateVariances() {
+    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+        itr->updateVariance();
+    }
+}
+
+vector<Segment> AdaptivePyramidAlgorithm::getNeighbours(int x, int y) {
+    vector<Point2i> neighboursIndecies = img.getNeighbours(x, y);
+    vector<Segment> neighbours(neighboursIndecies.size());
+    for(vector<Point2i>::iterator it = neighboursIndecies.begin(); it != neighboursIndecies.end(); it++) {
+        neighbours.push_back(graph.getNode(it->y * img.width + it->x));
+    }
+    return neighbours;
+}
+
+bool AdaptivePyramidAlgorithm::doesNeedAnotherLevel() {
+    calculateMeans();
+    return  false;
 }

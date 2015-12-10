@@ -30,7 +30,9 @@ public:
     double get(double x, double y);
     // x is j, y is i
     double get(int x, int y);
-    vector<Point2i> getNeibours (int x, int y);
+    vector<Point2i> getNeighbours (int x, int y);
+    vector<double> getNeighboursValues (int x, int y);
+    double calculateVariance(int x, int y);
     ~MatWrapper();
 };
 

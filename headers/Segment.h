@@ -34,7 +34,7 @@ public:
     void survive();
     bool isSurvivor();
     bool isDead();
-//    void addNeighbours(vector<Point2i> &neighbours, int width);
+    void addNeighbours(vector<Segment> neighbours);
 };
 
 #endif /* defined(__assignment_3__Segment__) */

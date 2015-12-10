@@ -17,6 +17,10 @@ void Segment::addNeighbour(Segment segment) {
     neighbours.push_back(segment);
 }
 
+void Segment::addNeighbours(vector<Segment> neighbours){
+    this->neighbours.insert(this->neighbours.end(), neighbours.begin(), neighbours.end());
+}
+
 void Segment::updateMean() {
     this -> mean = 0;
     for (vector<PixelWrapper>::iterator itr = pixels.begin(); itr != pixels.end(); itr++) {
