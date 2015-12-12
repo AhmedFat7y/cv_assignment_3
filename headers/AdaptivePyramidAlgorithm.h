@@ -18,17 +18,17 @@ class AdaptivePyramidAlgorithm {
     double threshold;
     int iteration;
 public:
-    MatWrapper img;
-    AdaptivePyramidAlgorithm(Mat img, double threshold);
+    MatWrapper * imgWrapper;
+    AdaptivePyramidAlgorithm(Mat & img, double threshold);
     void init();
     void start();
     void createNodes();
     vector<Segment> getNeighbours(int x, int y);
     void setNeighbours();
     void startIteration();
+    void mergeSegments();
     void calculateMeans();
     void calculateVariances();
-//    void calculateVariancesFirstTime();
     bool doesNeedAnotherLevel();
     bool doesNeedAnotherIteration();
 };

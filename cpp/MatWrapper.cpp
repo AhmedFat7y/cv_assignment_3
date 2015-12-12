@@ -20,8 +20,10 @@ MatWrapper::MatWrapper(int cols, int rows, InputArray data) {
     this->mat->setTo(data);
 }
 
-MatWrapper::MatWrapper(Mat * mat) {
-    this->mat = mat;
+MatWrapper::MatWrapper(Mat & mat) {
+    this->mat = &mat;
+    this->width = mat.cols;
+    this->height = mat.rows;
 }
 
 MatWrapper::~MatWrapper() {
@@ -29,13 +31,13 @@ MatWrapper::~MatWrapper() {
 }
 
 // x is j, y is i
-double MatWrapper::get(double x, double y) {
-    return this->mat->at<double>(y, x);
+ELEMENT_TYPE MatWrapper::get(double x, double y) {
+    return this->mat->at<ELEMENT_TYPE>(y, x);
 }
 
 // x is j, y is i
-double MatWrapper::get(int x, int y) {
-    return this->mat->at<double>(y, x);
+ELEMENT_TYPE MatWrapper::get(int x, int y) {
+    return this->mat->at<ELEMENT_TYPE>(y, x);
 }
 
 vector<Point2i> MatWrapper::getNeighbours (int x, int y) {
@@ -44,7 +46,7 @@ vector<Point2i> MatWrapper::getNeighbours (int x, int y) {
         Point2i(x, y - 1),
         Point2i(x + 1, y - 1),
         Point2i(x - 1, y),
-        Point2i(x, y),
+//        Point2i(x, y), No need apparently!
         Point2i(x + 1, y),
         Point2i(x - 1, y + 1),
         Point2i(x , y + 1),
@@ -62,8 +64,8 @@ vector<Point2i> MatWrapper::getNeighbours (int x, int y) {
 }
 
 
-vector<double> MatWrapper::getNeighboursValues (int x, int y) {
-    vector<double> neighboursValues;
+vector<ELEMENT_TYPE> MatWrapper::getNeighboursValues (int x, int y) {
+    vector<ELEMENT_TYPE> neighboursValues;
     vector<Point2i> neighbourPoints = {
         Point2i(x - 1, y - 1),
         Point2i(x, y - 1),
@@ -87,9 +89,11 @@ vector<double> MatWrapper::getNeighboursValues (int x, int y) {
 double MatWrapper::calculateVariance(int x, int y) {
     double variance = 0;
     double mean = 0;
-    vector<double> neighbourPixels = getNeighboursValues(x, y);
+    double temp = 0;
+    vector<ELEMENT_TYPE> neighbourPixels = getNeighboursValues(x, y);
     // calculate mean
-    for (vector<double>::iterator itr = neighbourPixels.begin(); itr != neighbourPixels.end(); itr++) {
+    for (vector<ELEMENT_TYPE>::iterator itr = neighbourPixels.begin(); itr != neighbourPixels.end(); itr++) {
+        temp = *itr;
         mean += *itr;
     }
     if (neighbourPixels.size() > 0) {
@@ -97,8 +101,9 @@ double MatWrapper::calculateVariance(int x, int y) {
     }
 
     //calculate the variance
-    for (vector<double>::iterator itr = neighbourPixels.begin(); itr != neighbourPixels.end(); itr++) {
-        variance += pow(*itr - mean, 2);
+    for (vector<ELEMENT_TYPE>::iterator itr = neighbourPixels.begin(); itr != neighbourPixels.end(); itr++) {
+        temp = *itr;
+        variance += pow(mean - (double)*itr, 2);
     }
     if (neighbourPixels.size() > 0) {
         variance /= neighbourPixels.size();

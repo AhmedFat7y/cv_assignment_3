@@ -26,18 +26,21 @@ public:
     double mean;
     double variance;
     vector<PixelWrapper> pixels;
-    vector<Segment> neighbours;
-    void linkPixel(PixelWrapper pixel);
-    void addNeighbour(Segment segment);
+    vector<Segment*> neighbours;
+    Segment();
+    void addPixel(PixelWrapper const &pixel);
+    void linkSegment(Segment &segmentToBeMerged);
+    void addNeighbour(Segment &segment);
     void updateMean();
     void updateVariance();
     void SurviveOrKill();
     void kill();
+    Segment * getBestSurvivor();
     void survive();
     bool isSurvivor();
     bool isDead();
     bool isMarked();
-    void addNeighbours(vector<Segment> neighbours);
+    void addNeighbours(vector<Segment*> &neighbours);
 };
 
 #endif /* defined(__assignment_3__Segment__) */

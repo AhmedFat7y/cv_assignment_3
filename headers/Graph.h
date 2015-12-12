@@ -22,8 +22,8 @@ using namespace std;
 class Graph {
 public:
     vector<Segment> nodes;
-    void addNode(Segment segment);
-    Segment getNode(int index);
+    void addNode(Segment & segment);
+    Segment & getNode(int index);
 };
 
 

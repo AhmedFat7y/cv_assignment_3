@@ -9,15 +9,21 @@
 
 #include "Segment.h"
 
-void Segment::linkPixel(PixelWrapper pixel) {
+Segment::Segment() :_isDead(false), _isMarked(false){
+}
+
+void Segment::linkSegment(Segment &segmentToBeMerged) {
+    pixels.insert(pixels.end(), segmentToBeMerged.pixels.begin(), segmentToBeMerged.pixels.end());
+}
+void Segment::addPixel(PixelWrapper const &pixel) {
     pixels.push_back(pixel);
 }
 
-void Segment::addNeighbour(Segment segment) {
-    neighbours.push_back(segment);
+void Segment::addNeighbour(Segment &segment) {
+    neighbours.insert(neighbours.end(), &segment);
 }
 
-void Segment::addNeighbours(vector<Segment> neighbours){
+void Segment::addNeighbours(vector<Segment*> &neighbours){
     this->neighbours.insert(this->neighbours.end(), neighbours.begin(), neighbours.end());
 }
 
@@ -42,17 +48,32 @@ void Segment::updateVariance() {
 }
 
 void Segment::SurviveOrKill() {
-    for(vector<Segment>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
-        if(!itr->isMarked() && itr->mean < this->mean) {
+    for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        if(!(*itr)->isMarked() && (*itr)->variance < this->variance) {
             kill();
         }
     }
     survive();
-    for(vector<Segment>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
-        if(!itr->isMarked()) {
-            itr->kill();
+    for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        if(!(*itr)->isMarked()) {
+            (*itr)->kill();
         }
     }
+}
+
+Segment * Segment::getBestSurvivor() {
+    double minAbsoluteDiff = (255 * 255) + 1; // to make sure it's bigger than max pixel intensity squared
+    vector<Segment*>::iterator minItr;
+    for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        double absoluteDifference = pow((*itr)->mean - this->mean, 2);
+        if( absoluteDifference < minAbsoluteDiff) {
+            minAbsoluteDiff = minAbsoluteDiff;
+            minItr = itr;
+        }
+    }
+
+    return (*minItr);
+
 }
 
 void Segment::kill() {

@@ -8,10 +8,10 @@
 
 #include "Graph.h"
 
-void Graph::addNode(Segment segment) {
+void Graph::addNode(Segment & segment) {
     nodes.push_back(segment);
 }
 
-Segment Graph::getNode(int index) {
+Segment& Graph::getNode(int index) {
     return nodes[index];
 }

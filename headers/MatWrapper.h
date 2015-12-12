@@ -9,6 +9,8 @@
 #ifndef assignment_3_MatWrapper_h
 #define assignment_3_MatWrapper_h
 
+#define ELEMENT_TYPE uchar
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
@@ -25,13 +27,13 @@ public:
     int height; // row
     MatWrapper();
     MatWrapper(int cols, int rows, InputArray data);
-    MatWrapper(Mat * mat);
+    MatWrapper(Mat & mat);
     // x is j, y is i
-    double get(double x, double y);
+    ELEMENT_TYPE get(double x, double y);
     // x is j, y is i
-    double get(int x, int y);
+    ELEMENT_TYPE get(int x, int y);
     vector<Point2i> getNeighbours (int x, int y);
-    vector<double> getNeighboursValues (int x, int y);
+    vector<ELEMENT_TYPE> getNeighboursValues (int x, int y);
     double calculateVariance(int x, int y);
     ~MatWrapper();
 };
