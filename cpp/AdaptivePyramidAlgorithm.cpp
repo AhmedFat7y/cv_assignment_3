@@ -22,6 +22,7 @@ void AdaptivePyramidAlgorithm::init() {
 }
 void AdaptivePyramidAlgorithm::start() {
     do {
+        resetGraphNodesFlags();
         do {
             startIteration();
         } while(doesNeedAnotherIteration());
@@ -78,16 +79,17 @@ void AdaptivePyramidAlgorithm::calculateVariances() {
 void AdaptivePyramidAlgorithm::startIteration() {
     for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
         itr->SurviveOrKill();
-//        Segment & s = *itr;
     }
 }
 
 void AdaptivePyramidAlgorithm::mergeSegments() {
     for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+        if(!itr->isMarked()) {
+            throw Exception();
+        }
         if(itr->isDead()) {
 //            Segment & masterNodeItr = itr->getBestSurvivor();
-
-
+//            Segment & s = *itr;
         }
     }
 }

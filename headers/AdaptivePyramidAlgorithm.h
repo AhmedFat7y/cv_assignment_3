@@ -29,6 +29,7 @@ public:
     void mergeSegments();
     void calculateMeans();
     void calculateVariances();
+    void resetGraphNodesFlags();
     bool doesNeedAnotherLevel();
     bool doesNeedAnotherIteration();
 };

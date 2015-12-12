@@ -14,9 +14,9 @@ MatWrapper::MatWrapper() {
 
 //width = cols, height = rows
 MatWrapper::MatWrapper(int cols, int rows, InputArray data) {
-    this->mat = new Mat(height, width, CV_64F);
     this->width = cols;
     this->height = rows;
+    this->mat = new Mat(height, width, CV_8U);
     this->mat->setTo(data);
 }
 

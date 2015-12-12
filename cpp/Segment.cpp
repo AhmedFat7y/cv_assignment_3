@@ -50,7 +50,7 @@ void Segment::updateVariance() {
 void Segment::SurviveOrKill() {
     for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
         if(!(*itr)->isMarked() && (*itr)->variance < this->variance) {
-            kill();
+            return ;
         }
     }
     survive();
