@@ -83,14 +83,20 @@ void AdaptivePyramidAlgorithm::startIteration() {
 }
 
 void AdaptivePyramidAlgorithm::mergeSegments() {
-    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+    vector<Segment>::iterator itr = graph.nodes.begin();
+    while ( itr != graph.nodes.end()) {
         if(!itr->isMarked()) {
             throw Exception();
         }
-        if(itr->isDead()) {
-//            Segment & masterNodeItr = itr->getBestSurvivor();
-//            Segment & s = *itr;
+        if(itr->isSurvivor()) {
+            itr ++;
+            continue ;
         }
+        //here means it's dead segment;
+        //loop on neighbours and remove the current segment from them
+        //remove this node
+        itr->mergeSegment();
+        itr = graph.nodes.erase(itr);
     }
 }
 
@@ -107,4 +113,11 @@ bool AdaptivePyramidAlgorithm::doesNeedAnotherIteration() {
         }
     }
     return false;
+}
+
+
+void AdaptivePyramidAlgorithm::resetGraphNodesFlags() {
+    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
+        itr->resetFlags();
+    }
 }

@@ -29,8 +29,10 @@ public:
     vector<Segment*> neighbours;
     Segment();
     void addPixel(PixelWrapper const &pixel);
-    void linkSegment(Segment &segmentToBeMerged);
+    void addPixels(vector<PixelWrapper> pixels);
     void addNeighbour(Segment &segment);
+    void addNeighbours(vector<Segment*> &neighbours);
+    void removeNeighbour(Segment * segment);
     void updateMean();
     void updateVariance();
     void SurviveOrKill();
@@ -40,7 +42,8 @@ public:
     bool isSurvivor();
     bool isDead();
     bool isMarked();
-    void addNeighbours(vector<Segment*> &neighbours);
+    void mergeSegment();
+    void resetFlags();
 };
 
 #endif /* defined(__assignment_3__Segment__) */
