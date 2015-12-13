@@ -27,6 +27,7 @@ public:
     double variance;
     vector<PixelWrapper> pixels;
     vector<Segment*> neighbours;
+    Segment * masterSegment;
     Segment();
     void addPixel(PixelWrapper const &pixel);
     void addPixels(vector<PixelWrapper> pixels);
@@ -42,7 +43,7 @@ public:
     bool isSurvivor();
     bool isDead();
     bool isMarked();
-    void mergeSegment();
+    void linkSegment();
     void resetFlags();
 };
 

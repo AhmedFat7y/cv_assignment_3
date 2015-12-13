@@ -28,6 +28,7 @@ void AdaptivePyramidAlgorithm::start() {
         } while(doesNeedAnotherIteration());
         //finished labeling all pixels/segments
         mergeSegments();
+        removeDeadSegments();
     } while(doesNeedAnotherLevel());
 
 }
@@ -60,15 +61,15 @@ void AdaptivePyramidAlgorithm::setNeighbours() {
     }
 }
 
-//always call calculateMeans before calculateVariances
+// always call calculateMeans before calculateVariances
 void AdaptivePyramidAlgorithm::calculateMeans() {
     for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
         itr->updateMean();
     }
 }
 
-//always call calculateMeans before calculateVariances
-//used for higher levels
+// always call calculateMeans before calculateVariances
+// used for higher levels
 void AdaptivePyramidAlgorithm::calculateVariances() {
     for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr++) {
         itr->updateVariance();
@@ -82,21 +83,36 @@ void AdaptivePyramidAlgorithm::startIteration() {
     }
 }
 
+void AdaptivePyramidAlgorithm::linkSegments() {
+
+    for (vector<Segment>::iterator itr = graph.nodes.begin(); itr != graph.nodes.end(); itr ++) {
+        if(!itr->isMarked()) {
+            throw Exception();
+        }
+
+        if(itr->isDead()) {
+            // link segment with a survivor
+            itr->linkSegment();
+        }
+    }
+}
+
 void AdaptivePyramidAlgorithm::mergeSegments() {
+
+}
+
+void AdaptivePyramidAlgorithm::removeDeadSegments() {
     vector<Segment>::iterator itr = graph.nodes.begin();
     while ( itr != graph.nodes.end()) {
         if(!itr->isMarked()) {
             throw Exception();
         }
-        if(itr->isSurvivor()) {
+
+        if(itr->isDead()) {
+            // remove node, remove it from its neighbours, move the neighbours to survivng one Node
+        } else {
             itr ++;
-            continue ;
         }
-        //here means it's dead segment;
-        //loop on neighbours and remove the current segment from them
-        //remove this node
-        itr->mergeSegment();
-        itr = graph.nodes.erase(itr);
     }
 }
 

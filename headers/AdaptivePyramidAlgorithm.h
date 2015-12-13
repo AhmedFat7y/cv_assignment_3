@@ -26,10 +26,12 @@ public:
     vector<Segment> getNeighbours(int x, int y);
     void setNeighbours();
     void startIteration();
+    void linkSegments();
     void mergeSegments();
     void calculateMeans();
     void calculateVariances();
     void resetGraphNodesFlags();
+    void removeDeadSegments();
     bool doesNeedAnotherLevel();
     bool doesNeedAnotherIteration();
 };

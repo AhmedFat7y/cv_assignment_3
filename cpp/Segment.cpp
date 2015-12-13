@@ -9,7 +9,18 @@
 
 #include "Segment.h"
 
-Segment::Segment() :_isDead(false), _isMarked(false){
+void removeFromList(vector<Segment*> & segments, Segment * toBeRemoved) {
+    vector<Segment*>::iterator itr = segments.begin();
+    while (itr != segments.end()) {
+        if(*itr == toBeRemoved) {
+            itr = segments.erase(itr);
+        } else {
+            itr ++;
+        }
+    }
+}
+
+Segment::Segment() :_isDead(false), _isMarked(false), masterSegment(0){
 }
 
 void Segment::addPixels(vector<PixelWrapper> pixels) {
@@ -25,14 +36,7 @@ void Segment::addNeighbour(Segment &segment) {
 }
 
 void Segment::removeNeighbour(Segment *segment) {
-    vector<Segment*>::iterator itr = neighbours.begin();
-    while (itr != neighbours.end()) {
-        if(*itr == segment) {
-            itr = neighbours.erase(itr);
-        } else {
-            itr ++;
-        }
-    }
+    removeFromList(neighbours, segment);
 }
 
 void Segment::addNeighbours(vector<Segment*> &neighbours){
@@ -42,20 +46,20 @@ void Segment::addNeighbours(vector<Segment*> &neighbours){
 void Segment::updateMean() {
     this -> mean = 0;
     for (vector<PixelWrapper>::iterator itr = pixels.begin(); itr != pixels.end(); itr++) {
-        this -> mean += itr->value;
+        this->mean += itr->value;
     }
     if (pixels.size() > 0 ) {
-        this -> mean /= pixels.size();
+        this->mean /= pixels.size();
     }
 }
 
 void Segment::updateVariance() {
     this -> variance = 0;
     for (vector<PixelWrapper>::iterator itr = pixels.begin(); itr != pixels.end(); itr++) {
-        this -> variance += pow(itr->value - this->mean, 2);
+        this->variance += pow(itr->value - this->mean, 2);
     }
     if (pixels.size() > 0 ) {
-        this -> variance /= pixels.size();
+        this->variance /= pixels.size();
     }
 }
 
@@ -88,16 +92,20 @@ Segment * Segment::getBestSurvivor() {
 
 // TODO revisit this one
 //merge segment with best survivor and remove its pointers from the neighbours
-void Segment::mergeSegment() {
+void Segment::linkSegment() {
     if(!isMarked()) {
         throw Exception();
     }
-    Segment * masterNodeItr = getBestSurvivor();
-    masterNodeItr->addPixels(pixels);
-    for (vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
-        (*itr)->removeNeighbour(this);
-    };
-    // merge neighbours too plz!
+    Segment * masterNode = getBestSurvivor();
+    this->masterSegment = masterNode; // we will use this to merge segments later after linking
+    // TODO
+//    masterNode->addPixels(pixels);
+//    for (vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+//        (*itr)->removeNeighbour(this);
+//    };
+    // merge neighbours too plz! and remove the masternode from the
+    // not now, after
+//    masterNodeItr->addNeighbours(neighbours);
 }
 
 void Segment::kill() {
@@ -122,7 +130,10 @@ bool Segment::isSurvivor() {
 }
 
 void Segment::resetFlags() {
-    _isMarked = false;
-    _isDead = false;
+    this->_isMarked = false;
+    this->_isDead = false;
+    this->mean = 0;
+    this->variance = 0;
+    this->masterSegment = 0;
 }
 
