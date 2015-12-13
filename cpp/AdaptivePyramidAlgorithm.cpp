@@ -42,7 +42,7 @@ void AdaptivePyramidAlgorithm::applyResult() {
         Segment & node = nodes[i];
         for(int j=0; j <  node.pixels.size(); j++) {
             PixelWrapper & pixel = node.pixels[j];
-            this->imgWrapper->set(pixel.x, pixel.y, pixel.value);
+            this->imgWrapper->set(pixel.x, pixel.y, node.mean);
         }
     }
 }
