@@ -40,6 +40,10 @@ ELEMENT_TYPE MatWrapper::get(int x, int y) {
     return this->mat->at<ELEMENT_TYPE>(y, x);
 }
 
+void MatWrapper::set(int x, int y, ELEMENT_TYPE value) {
+    this->mat->at<ELEMENT_TYPE>(y, x) = value;
+}
+
 vector<Point2i> MatWrapper::getNeighbours (int x, int y) {
     vector<Point2i> neighbourPoints = {
         Point2i(x - 1, y - 1),

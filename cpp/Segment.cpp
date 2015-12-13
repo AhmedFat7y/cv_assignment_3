@@ -23,8 +23,8 @@ void removeFromList(vector<Segment*> & segments, Segment * toBeRemoved) {
 Segment::Segment() :_isDead(false), _isMarked(false), masterSegment(0){
 }
 
-void Segment::addPixels(vector<PixelWrapper> pixels) {
-    pixels.insert(pixels.end(), pixels.begin(), pixels.end());
+void Segment::addPixels(vector<PixelWrapper> &newPixels) {
+    pixels.insert(pixels.end(), newPixels.begin(), newPixels.end());
 }
 
 void Segment::addPixel(PixelWrapper const &pixel) {
@@ -35,12 +35,21 @@ void Segment::addNeighbour(Segment &segment) {
     neighbours.insert(neighbours.end(), &segment);
 }
 
+void Segment::addNeighbour(Segment *segment) {
+    for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        if((*itr) == segment) {
+            return ;
+        }
+    }
+    neighbours.insert(neighbours.end(), segment);
+}
+
 void Segment::removeNeighbour(Segment *segment) {
     removeFromList(neighbours, segment);
 }
 
-void Segment::addNeighbours(vector<Segment*> &neighbours){
-    this->neighbours.insert(this->neighbours.end(), neighbours.begin(), neighbours.end());
+void Segment::addNeighbours(vector<Segment*> &newNeighbours){
+    neighbours.insert(neighbours.end(), newNeighbours.begin(), newNeighbours.end());
 }
 
 void Segment::updateMean() {
@@ -76,18 +85,33 @@ void Segment::SurviveOrKill() {
         }
     }
 }
+void Segment::spreadMasterSegment() {
+    for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
+        if(*itr != masterSegment) {
+            (*itr)->addNeighbour(masterSegment);
+        }
+    }
+}
 
 Segment * Segment::getBestSurvivor() {
     double minAbsoluteDiff = (255 * 255) + 1; // to make sure it's bigger than max pixel intensity squared
     vector<Segment*>::iterator minItr;
     for(vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
-        double absoluteDifference = abs((*itr)->mean - this->mean);
-        if( absoluteDifference < minAbsoluteDiff) {
-            minAbsoluteDiff = minAbsoluteDiff;
-            minItr = itr;
+        if((*itr)->isSurvivor()) {
+            double absoluteDifference = abs((*itr)->mean - this->mean);
+            if (absoluteDifference < minAbsoluteDiff) {
+                minAbsoluteDiff = minAbsoluteDiff;
+                minItr = itr;
+            }
         }
     }
     return (*minItr);
+}
+
+void Segment::prepareForRemoval() {
+    for (int i = 0; i < neighbours.size();i++) {
+        neighbours[i]->removeNeighbour(this);
+    };
 }
 
 // TODO revisit this one
@@ -96,8 +120,8 @@ void Segment::linkSegment() {
     if(!isMarked()) {
         throw Exception();
     }
-    Segment * masterNode = getBestSurvivor();
-    this->masterSegment = masterNode; // we will use this to merge segments later after linking
+    this->masterSegment = getBestSurvivor(); // we will use this to merge segments later after linking
+    this->masterSegment->neighbours.clear();
     // TODO
 //    masterNode->addPixels(pixels);
 //    for (vector<Segment*>::iterator itr = neighbours.begin(); itr != neighbours.end(); itr++) {
@@ -132,8 +156,8 @@ bool Segment::isSurvivor() {
 void Segment::resetFlags() {
     this->_isMarked = false;
     this->_isDead = false;
-    this->mean = 0;
-    this->variance = 0;
+//    this->mean = 0;
+//    this->variance = 0;
     this->masterSegment = 0;
 }
 

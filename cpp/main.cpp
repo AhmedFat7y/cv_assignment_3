@@ -16,7 +16,7 @@ using namespace std;
 #include "AdaptivePyramidAlgorithm.h"
 
 string path = "/Users/MacBookAir/Documents/guc-projects/cv/assignment-3/";
-double threshold = 120;
+double threshold = 30;
 int main(int argc, const char * argv[]) {
 //    vector<PixelWrapper> points = {
 //        PixelWrapper(1,7, 1),
@@ -32,9 +32,19 @@ int main(int argc, const char * argv[]) {
 //        pix.x = 34;
 //    }
 //    cout << points << endl << endl;
+    uchar test_data[4 * 4] = {
+        77, 69, 100, 54,
+        66, 4, 98, 19,
+        3, 74, 38, 58,
+        50, 62, 65, 78
+    };
+//    Mat img = Mat(4, 4, CV_8U, test_data);
     Mat img = imread(path + "house.bmp", CV_LOAD_IMAGE_GRAYSCALE);   // Read the file
     AdaptivePyramidAlgorithm algorithm(img, threshold);
     algorithm.init();
     algorithm.start();
+    algorithm.applyResult();
+    imshow("Modified Image", img);
+    waitKey();
     return 0;
 }

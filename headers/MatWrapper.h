@@ -32,6 +32,7 @@ public:
     ELEMENT_TYPE get(double x, double y);
     // x is j, y is i
     ELEMENT_TYPE get(int x, int y);
+    void set(int x, int y, ELEMENT_TYPE value);
     vector<Point2i> getNeighbours (int x, int y);
     vector<ELEMENT_TYPE> getNeighboursValues (int x, int y);
     double calculateVariance(int x, int y);

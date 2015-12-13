@@ -13,7 +13,7 @@
 #include "MatWrapper.h"
 
 class AdaptivePyramidAlgorithm {
-    Graph graph;
+    vector<Segment> nodes;
     int level;
     double threshold;
     int iteration;
@@ -22,16 +22,20 @@ public:
     AdaptivePyramidAlgorithm(Mat & img, double threshold);
     void init();
     void start();
+    void applyResult();
     void createNodes();
     vector<Segment> getNeighbours(int x, int y);
     void setNeighbours();
     void startIteration();
     void linkSegments();
     void mergeSegments();
+    void updateGraphStructure();
     void calculateMeans();
     void calculateVariances();
     void resetGraphNodesFlags();
     void removeDeadSegments();
+    void addNode(Segment & segment);
+    Segment & getNode(int index);
     bool doesNeedAnotherLevel();
     bool doesNeedAnotherIteration();
 };

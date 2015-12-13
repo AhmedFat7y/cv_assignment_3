@@ -21,9 +21,9 @@ class PixelWrapper {
 public:
     int x;
     int y;
-    double value;
+    uchar value;
     //x = j, y = i
-    PixelWrapper(int x, int y, double value);
+    PixelWrapper(int x, int y, uchar value);
 };
 
 #endif /* defined(__assignment_3__PixelWrapper__) */
